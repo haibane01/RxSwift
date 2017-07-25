@@ -36,6 +36,7 @@ class MultiCellTypeViewController: UIViewController {
     
     fileprivate func bindTableView() {
         let section1: Observable<[MyData]> = Observable.of([.banner("배너 1"), .deal("딜 1", "설명 설명"), .deal("딜 2", "설명 설명 설명 설명")])
+        
         section1.bind(to: tableView.rx.items) {
             (tableView: UITableView, index: Int, element: MyData) in
             switch element {
@@ -53,23 +54,14 @@ class MultiCellTypeViewController: UIViewController {
             }
         }.addDisposableTo(disposeBag)
         
-//        let section2: Observable<[MyData]> = Observable.of([.banner("배너2"), .deal("딜 2-1"), .deal("deal2-2"),])
-//        section2.bind(to: tableView.rx.items) {
-//            (tableView: UITableView, index: Int, element: MyData) in
-//            let indexPath = IndexPath(row: index, section: 0)
-//            switch element {
-//            case .banner(let title):
-//                let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier:
-//                    "bannerCell", for: indexPath)
-//                cell.textLabel?.text = title
-//                return cell
-//            case .deal(let title):
-//                let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier:
-//                    "titleCell", for: indexPath)
-//                cell.textLabel?.text = title
-//                return cell
-//            }
-//        }.addDisposableTo(disposeBag)
-        
+//        tableView.rx.setDelegate(self)
+//        .addDisposableTo(disposeBag)
     }
+}
+
+extension MultiCellTypeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // you can also fetch item
+        return CGFloat(100)
+    }    
 }
