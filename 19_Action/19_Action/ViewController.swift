@@ -31,7 +31,6 @@ class ViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var loginButton: UIButton!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -48,6 +47,7 @@ class ViewController: UIViewController {
                     observer.onError(MyError.testError)
                 } else {
                     observer.onNext(input)
+                    observer.onCompleted()
                 }
                 return Disposables.create()
             })
@@ -90,6 +90,7 @@ class ViewController: UIViewController {
                         observer.onError(LoginError.incorrectPassword)
                     } else {
                         observer.onNext(true)
+                        observer.onCompleted()
                     }
                 }
                 return Disposables.create()
